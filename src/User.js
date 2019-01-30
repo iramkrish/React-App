@@ -1,23 +1,22 @@
 import React, { Component } from 'react';
 import './User.css';
+import PropTypes from 'prop-types';
 
 
 class User extends Component {
-
     state = {
         user:this.props.match.params.user,
-        carousal_count:'',
-    };
+        carousal_count:''
+    }
 
-    Carousal_Count(data){
-        this.setState({carousal_count:data},function(){
+    Carousal_Count = (data) => {
+        this.setState({carousal_count:data}, () => {
             document.getElementById('test').innerHTML = '';
                 for(var i=1;i<=this.state.carousal_count;i++){
                     var className = (i === Number(this.state.carousal_count)) ? "carousel-item active" : "carousel-item";
                     document.getElementById('test').innerHTML += '<div class="'+className+'"><div class="img"><p>'+i+'</p></div></div>';
                 }
             });
-
     }
 
     render() {
@@ -34,14 +33,10 @@ class User extends Component {
 
 class Select extends Component{
 
-      clicked(e){
+      clicked = () => {
         if(this.props.data === localStorage.key(this.props.data)){
         let store = localStorage.getItem(this.props.data);
-        if(store!==''){
-        store = store + "," + this.refs.selected.value;}
-        else{
-            store = this.refs.selected.value;
-        }
+        store = store !== '' ? (store + "," + this.refs.selected.value) : this.refs.selected.value;
         localStorage.setItem(this.props.data,store);
         this.props.Carousal_Count(this.refs.selected.value);
         }
@@ -76,6 +71,12 @@ class Select extends Component{
             </div>
           );
       }
+
+  }
+
+  Select.propTypes = {
+      Carousal_Count:PropTypes.func.isRequired,
+      data : PropTypes.string.isRequired
   }
 
 class Carousal extends Component{
@@ -101,23 +102,36 @@ class Carousal extends Component{
     }
 }
 
-const Modal = ({ handleClose, show, children }) => {
+Carousal.propTypes = {
+    send : PropTypes.string.isRequired
+}
 
-    const s = show ? "modal display-block" : "modal display-none";
+
+const Modal = ({ handleClose, show, children }) => {
+    const show_result = show ? "modal display-block" : "modal display-none";
 
     return (
-      <div className={s}>
+      <div className={show_result}>
         <section className="modal-main">
           {children}
           <button className="button-close" onClick={handleClose}>close</button>
         </section>
       </div>
     );
-  };
+  }
+
+Modal.propTypes = {
+    handleClose: PropTypes.func.isRequired,
+    show: PropTypes.bool.isRequired,
+    children: PropTypes.element.isRequired,
+}
 
 class Finish extends Component{
 
-    state = { show: false,localdata:"you are not logged in"};
+    state = {
+        show: false,
+        localdata:"you are not logged in"
+    }
 
     showModal = (event) => {
       event.preventDefault();
@@ -128,22 +142,20 @@ class Finish extends Component{
               this.setState({localdata:'you haven\'t selected any number'});
           }
       }
-
-    this.setState({ show: true });
-    };
+      this.setState({ show: true });
+    }
 
     hideModal = () => {
         this.setState({ show: false });
-    };
+    }
 
     render(){
         return(
             <div id="finishButton">
             <Modal show={this.state.show} handleClose={this.hideModal}>
-                <span>{this.state.localdata}</span>
+                <p><span>{this.state.localdata}</span></p>
             </Modal>
             <form onSubmit={this.showModal}>
-                {/* <button ref="finish" type="submit" className="btn">Finish</button> */}
                 <button ref="finish" className="button-signin finish" type="submit" value="Finish">Finish</button>
             </form>
             </div>
@@ -151,5 +163,9 @@ class Finish extends Component{
     }
 }
 
-  export default User;
+Finish.propTypes = {
+    data : PropTypes.string.isRequired
+}
+
+export default User;
 

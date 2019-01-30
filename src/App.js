@@ -1,31 +1,35 @@
 import React, { Component } from 'react';
 import './App.css';
+import PropTypes from 'prop-types';
 
 class App extends Component {
+
   render() {
     return (
-      <Form history={this.props.history} tagline="Login" label1="username" label2="password"></Form>
+      <Form history={this.props.history} tagline={'Login'} label1={'username'} label2={'password'}></Form>
     );
   }
+
 }
 
 class Form extends Component {
 
-  goToUserPage(event){
+  goToUserPage = (event) => {
       event.preventDefault();
-      let username = this.refs.username.value;
+      const username = this.refs.username.value.toLowerCase();
       const password = this.refs.password.value;
-      username = username.toLowerCase();
       if(username === 'shaadi' && password === '123'){
+
         if(localStorage.key(username) !== username){
           localStorage.setItem(username,'');
-      }
+        }
         this.props.history.push('/user/'+username);
-    }
-    else{
-      alert('username:shaadi,password:123');
-    }
-    }
+
+      }
+      else{
+        alert('username:shaadi,password:123');
+      }
+  }
 
 
   render() {
@@ -43,6 +47,18 @@ class Form extends Component {
       </div>
     );
   }
+}
+
+Form.propTypes = {
+  tagline: PropTypes.string.isRequired,
+  label1: PropTypes.string.isRequired,
+  label2: PropTypes.string.isRequired
+}
+
+Form.defaultProps = {
+  tagline: 'Login',
+  label1:'Username',
+  label2:'Password'
 }
 
 export default App;
