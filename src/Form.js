@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Form extends Component {
-  goToUserPage(event) {
+  goToUserPage = (event) => {
     const { history } = this.props;
     event.preventDefault();
     const username = this.label1.value.toLowerCase();
@@ -21,7 +21,7 @@ class Form extends Component {
     return (
 
       <div id="app_root">
-        <form onSubmit={this.goToUserPage.bind(this)} className="row login-form" name="myForm">
+        <form onSubmit={this.goToUserPage} className="row login-form" name="myForm">
           <h1>
             {tagline}
           </h1>
