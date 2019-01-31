@@ -2,12 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Select extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.clicked = this.clicked.bind(this);
+  }
+
     clicked = () => {
       const { data, carousalCount } = this.props;
-      if (data === window.localStorage.key(data)) {
-        let store = window.localStorage.getItem(data);
+      const { localStorage } = window;
+      if (data === localStorage.key(data)) {
+        let store = localStorage.getItem(data);
         store = store !== '' ? (`${store},${this.selected.value}`) : this.selected.value;
-        window.localStorage.setItem(data, store);
+        localStorage.setItem(data, store);
         carousalCount(this.selected.value);
       }
     }
@@ -15,7 +21,7 @@ class Select extends Component {
     render() {
       return (
         <div id="dropdown-container">
-          <select ref={(input) => { this.selected = input; }} className="custom-select" onChange={this.clicked.bind(this)}>
+          <select ref={(input) => { this.selected = input; }} className="custom-select" onChange={this.clicked}>
             <option default hidden>select the number of slides in carousal</option>
             <option value="1">1</option>
             <option value="2">2</option>

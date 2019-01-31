@@ -21,6 +21,12 @@ Modal.propTypes = {
 };
 
 class Finish extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
+  }
+
     state = {
       show: false,
       localdata: 'you are not logged in',
@@ -28,10 +34,11 @@ class Finish extends Component {
 
     showModal = (event) => {
       const { data } = this.props;
+      const { localStorage } = window;
       event.preventDefault();
-      if (window.localStorage.key(data) === data) {
-        if (window.localStorage.getItem(data)) {
-          this.setState({ localdata: window.localStorage.getItem(data) });
+      if (localStorage.key(data) === data) {
+        if (localStorage.getItem(data)) {
+          this.setState({ localdata: localStorage.getItem(data) });
         } else {
           this.setState({ localdata: 'you haven\'t selected any number' });
         }

@@ -35,7 +35,7 @@ class User extends Component {
 }
 
 User.propTypes = {
-  match: PropTypes.object.isRequired,
+  match: PropTypes.any.isRequired,
 };
 
 function Carousal() {
