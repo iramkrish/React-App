@@ -23,19 +23,17 @@ Modal.propTypes = {
 class Finish extends Component {
   constructor(props, context) {
     super(props, context);
+    this.state = {
+      show: false,
+      localdata: 'you are not logged in',
+    };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
   }
 
-    state = {
-      show: false,
-      localdata: 'you are not logged in',
-    }
-
     showModal = (event) => {
       const { data } = this.props;
       const { localStorage } = window;
-      event.preventDefault();
       if (localStorage.key(data) === data) {
         if (localStorage.getItem(data)) {
           this.setState({ localdata: localStorage.getItem(data) });
@@ -44,6 +42,7 @@ class Finish extends Component {
         }
       }
       this.setState({ show: true });
+      event.preventDefault();
     }
 
     hideModal = () => {

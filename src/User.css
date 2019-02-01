@@ -50,7 +50,7 @@ option{
     overflow: hidden;
 }
 
-#test .carousal-text{
+#carousal-stack .carousal-text{
     font-size: 5em;
     font-weight: 900;
     font-style: normal;
@@ -168,6 +168,14 @@ option{
 .finish{
     width: 400px;
     margin:0px !important;
+}
+
+.transition{
+    transition: all .1s ease;
+    -webkit-transition: all .1s ease;
+    -moz-transition: all .1s ease;
+    -ms-transition: all .1s ease;
+    -o-transition: all .1s ease;
 }
 
 @media only screen and (max-width: 400px) {

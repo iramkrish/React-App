@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Form extends Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.goToUserPage = this.goToUserPage.bind(this);
   }
 
   goToUserPage = (event) => {
     const { history } = this.props;
     const { localStorage } = window;
-    event.preventDefault();
     const username = this.label1.value.toLowerCase();
     const password = this.label2.value;
     if (username === 'shaadi' && password === '123') {
@@ -19,6 +18,7 @@ class Form extends Component {
       }
       history.push(`/user/${username}`);
     }
+    event.preventDefault();
   }
 
   render() {

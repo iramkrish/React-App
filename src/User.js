@@ -6,17 +6,22 @@ import Select from './Select';
 
 
 class User extends Component {
-    state = {
+  constructor(props) {
+    super(props);
+    this.state = {
       carousalCountValue: '',
-    }
+    };
+    this.carousalCount = this.carousalCount.bind(this);
+  }
 
     carousalCount = (data) => {
       this.setState({ carousalCountValue: data }, () => {
-        document.getElementById('test').innerHTML = '';
+        const carousalStack = document.getElementById('carousal-stack');
+        carousalStack.innerHTML = '';
         const { carousalCountValue } = this.state;
         for (let i = 1; i <= carousalCountValue; i++) {
           const className = (i === Number(carousalCountValue)) ? 'carousel-item active' : 'carousel-item';
-          document.getElementById('test').innerHTML += `<div class="${className}"><div class="img"><p>${i}</p></div></div>`;
+          carousalStack.innerHTML += `<div class="${className}"><div class="img"><p>${i}</p></div></div>`;
         }
       });
     }
@@ -42,7 +47,7 @@ function Carousal() {
   return (
     <div className="row carousal-container">
       <div id="carouselExampleControls" className="carousel" data-ride="carousel">
-        <div id="test" className="carousel-inner">
+        <div id="carousal-stack" className="carousel-inner">
           <p className="carousal-text">carousel</p>
         </div>
         <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
