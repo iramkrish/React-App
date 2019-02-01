@@ -21,8 +21,8 @@ Modal.propTypes = {
 };
 
 class Finish extends Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.state = {
       show: false,
       localdata: 'you are not logged in',
