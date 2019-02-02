@@ -8,6 +8,7 @@ class Form extends Component {
   }
 
   goToUserPage = (event) => {
+    event.preventDefault();
     const { history } = this.props;
     const { localStorage } = window;
     const username = this.label1.value.toLowerCase();
@@ -18,14 +19,12 @@ class Form extends Component {
       }
       history.push(`/user/${username}`);
     }
-    event.preventDefault();
   }
 
   render() {
     const { tagline, label1, label2 } = this.props;
 
     return (
-
       <div id="app_root">
         <form onSubmit={this.goToUserPage} className="row login-form" name="myForm">
           <h1>

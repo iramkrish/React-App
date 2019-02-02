@@ -32,6 +32,7 @@ class Finish extends Component {
   }
 
     showModal = (event) => {
+      event.preventDefault();
       const { data } = this.props;
       const { localStorage } = window;
       if (localStorage.key(data) === data) {
@@ -42,7 +43,6 @@ class Finish extends Component {
         }
       }
       this.setState({ show: true });
-      event.preventDefault();
     }
 
     hideModal = () => {
